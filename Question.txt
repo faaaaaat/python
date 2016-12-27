@@ -1,0 +1,13 @@
+begin 644 questions.bin
+M(R!796QC;VUE#0H-"B,C($ME>0T*#0I24T$@4'5B;&EC($ME>3H@*$XL(#<I
+M#0I.(#T@,C,S("H@30T*32!I<R!T:&4@9W)E871E<W0@9F]U<BUD:6=I="!P
+M<FEM92!T:&%T(&UA:V5S($X@96YD('=I=&@@,C,S#0H-"B,C($5N8W)Y<'1E
+M9"!!=61I="!142!G<F]U<"!N=6UB97(-"@T*5&AE($%U9&ET(%%1(&=R;W5P
+M(&YU;6)E<B!I<R!E;F-R>7!T960@=VET:"!T:&4@*BI24T$@4'5B;&EC($ME
+M>2HJ+@T*#0I@8&`-"D-/3D-!5"A$14-265!4*#$Y-S,W,BDN=&]3=')I;F<H
+M*2P@1$5#4EE05"@S,S,P-SDI+G1O4W1R:6YG*"DI#0I@8&`-"@T*(R!#05!4
+M0TA!#0I5<V4@=&AI<R!G:7-T(')E=FES:6]N(&`W9#(S939E.3DY-&)B-F9A
+M93@W-&1A8C,U930V9F0W-6(Y9&0Q-6)E8"!R97-U;'0@87,@0T%05$-(02X-
+!"@``
+`
+end
