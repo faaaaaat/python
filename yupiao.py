@@ -53,4 +53,4 @@ def getYuPiao(time, chufa = 'SHH', daoda = 'AQH',zuoweilx = 'ze_num'):
     # f.write(jobList[0])
     # f.close()
 
-print(getYuPiao('2017-01-25', getStationName.getStationName('上海'), getStationName.getStationName('安庆')))
+print(getYuPiao('2017-01-26', getStationName.getStationName('上海'), getStationName.getStationName('安庆')))

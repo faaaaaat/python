@@ -10,6 +10,7 @@ except:
 import re
 import time
 import os.path
+import mybase
 try:
     from PIL import Image
 except:
@@ -17,11 +18,12 @@ except:
 
 
 # 构造 Request headers
-agent = 'Mozilla/5.0 (Windows NT 5.1; rv:33.0) Gecko/20100101 Firefox/33.0'
+
 headers = {
-    "Host": "www.zhihu.com",
-    "Referer": "https://www.zhihu.com/",
-    'User-Agent': agent
+    'User-Agent' : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116 Safari/537.36',
+    'Accept' : 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    'Accept-Encoding' : 'gzip',
+    'Accept-Language' : 'zh-CN,zh;q=0.8,en;q=0.6,zh-TW;q=0.4'
 }
 
 # 使用登录cookie信息
@@ -131,16 +133,6 @@ def ungzip(data):
     except:
         print('未经压缩, 无需解压')
     return data
- 
-header = {
-    'Connection': 'Keep-Alive',
-    'Accept': 'text/html, application/xhtml+xml, */*',
-    'Accept-Language': 'en-US,en;q=0.8,zh-Hans-CN;q=0.5,zh-Hans;q=0.3',
-    'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko',
-    'Accept-Encoding': 'gzip, deflate',
-    'Host': 'www.zhihu.com',
-    'DNT': '1'
-}
 
 try:
     input = raw_input
@@ -156,13 +148,11 @@ if __name__ == '__main__':
         secret = input("请输入你的密码\n>  ")
         login(secret, account)
 
-url = 'https://www.zhihu.com/inbox'
-opener = getOpener(header)
-op = opener.open(url)
-data = op.read()
-data = ungzip(data)     # 解压
-data = data.decode()
 
-f = open('zhihu.html', 'wt', encoding= 'utf-8')
-f.write(data)
+url = 'https://www.zhihu.com'
+
+r       = session.get(url, headers = headers)
+content = mybase.ungzip(r.content).decode('utf-8');
+f = open('github.html', 'wt', encoding= 'utf-8')
+f.write(content)
 f.close()
