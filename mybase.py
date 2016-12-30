@@ -18,21 +18,24 @@ def write_info(file, content):
     f.close()
 # 标签替换
 def replaceTab(x):
-    removeSpace = re.compile('[\t\r\n\f\v]')
+    # removeSpace = re.compile(r'[\\t\\r\\n]')
+    removeSpace = re.compile('[\\t|\\n]')
+    x = re.sub(removeSpace, "", x)
     # replaceLine = re.compile('<tr>|<div>|</div>|</p>')
     # # #把段落开头换为\n加空两格
     # replacePara = re.compile('<p.*?>')
     # # #将换行符或双换行符替换为\n
     # replaceBR = re.compile('<br><br>|<br>')
     # 将其余标签剔除
-    removeNbsp = re.compile('&nbsp;')
-    removeExtraTag = re.compile('<.*?>')
+    # removeNbsp = re.compile('&nbsp;')
+    # removeExtraTag = re.compile('<.*?>')
+    # x = re.sub(removeExtraTag, "", x)
     # x = re.sub(replaceLine,"",x)
     # x = re.sub(replacePara,"",x)
     # x = re.sub(replaceBR,"",x)
-    x = re.sub(removeExtraTag, "", x)
-    x = re.sub(removeNbsp, "", x)
-    x = re.sub(removeSpace, "", x)
+    # x = re.sub(removeNbsp, "", x)
+    # removeNbsp = re.compile(' ')
+    # x = re.sub(removeNbsp, "", x)
     # strip()将前后多余内容删除
     return x.strip()
 #解压缩函数

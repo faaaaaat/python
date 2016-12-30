@@ -68,9 +68,17 @@ pattern = re.compile(r'replace\([\"\']([^\'\"]+)[\"\']', re.S)
 result  = re.findall(pattern, resp.text)
 resp = session.get(result[0])
 
-f = open('weibo.html', 'wt', encoding= 'utf-8')
-f.write(session.get('http://weibo.com/').text)
-f.close()
+getfansurl = 'http://weibo.com/p/1003062157238653/follow?relate=fans&from=100306&wvr=6&mod=headfans&current=fans'
+# f = open('weibo.html', 'wt', encoding= 'utf-8')
+# f.write(session.get(getfansurl).text)
+# f.close()
+resp = session.get(getfansurl, headers = my_headers)
+
+# resp = mybase.replaceTab(resp.text)
+# print(resp)
+pattern = re.compile(r'follow_list(.*?)WB_cardpage', re.S)
+result  = re.findall(pattern, resp.text)
+print(result)
 
 # r       = sss.get(cs_url, headers = my_headers)
 # content = mybase.ungzip(r.content).decode('utf-8');
