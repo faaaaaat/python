@@ -68,17 +68,36 @@ pattern = re.compile(r'replace\([\"\']([^\'\"]+)[\"\']', re.S)
 result  = re.findall(pattern, resp.text)
 resp = session.get(result[0])
 
-getfansurl = 'http://weibo.com/p/1003062157238653/follow?relate=fans&from=100306&wvr=6&mod=headfans&current=fans'
-# f = open('weibo.html', 'wt', encoding= 'utf-8')
-# f.write(session.get(getfansurl).text)
-# f.close()
-resp = session.get(getfansurl, headers = my_headers)
+i = 1
+a = 0
+url = 'http://weibo.com/p/1005051086233511/follow?relate=fans&page=' + str(i)
 
+#     resp = session.get(getfansurl, headers = my_headers)
+# getfansurl = 'http://weibo.com/p/1005051086233511/follow?relate=fans&page=4#Pl_Official_HisRelation__62'
+
+while a == 0:
+    resp = session.get(url, headers = my_headers)
+    pattern = re.compile(r'刘大大熊', re.S)
+    result  = re.findall(pattern, resp.text)
+    if result != []:
+        f = open('weibo.html', 'wt', encoding= 'utf-8')
+        f.write(result[0])
+        f.close()
+        a = 1
+    print(i)
+    i = i + 1
 # resp = mybase.replaceTab(resp.text)
 # print(resp)
-pattern = re.compile(r'follow_list(.*?)WB_cardpage', re.S)
-result  = re.findall(pattern, resp.text)
-print(result)
+# f = open('weibo.html', 'wt', encoding= 'utf-8')
+# f.write(resp.text)
+# f.close()
+
+
+# f = open('weibo.html', 'wt', encoding= 'utf-8')
+# f.write(result[0])
+# f.close()
+# if result == []:
+#     print(11111)
 
 # r       = sss.get(cs_url, headers = my_headers)
 # content = mybase.ungzip(r.content).decode('utf-8');
