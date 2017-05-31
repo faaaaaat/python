@@ -1,0 +1,11 @@
+server {
+    listen 80 default;
+    server_name _;
+
+    root html;
+    access_log off;
+
+    location / {
+        return 403 "EyeBuyDirect Inc.";
+    }
+}

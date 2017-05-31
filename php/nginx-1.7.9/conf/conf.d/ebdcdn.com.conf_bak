@@ -1,0 +1,94 @@
+server {
+    listen 80;
+	#listen 443 ssl;
+	
+	#ssl on;
+    #ssl_certificate conf.d/cert.cer;
+    #ssl_certificate_key conf.d/cert.key;
+    #ssl_session_timeout 1h;
+	
+    autoindex on;
+    index off;
+	server_name ~^cdn\.(www|au|ca|de|fr|gb|mx|eyezen)\.ebd\.(?P<localdomain>[^\.]+)\.eyebuy\.direct;
+    access_log off;
+    error_page 404 500 502 503 504 /index.html;
+
+    rewrite ^(/upload/banner/\d+/).+\.(\d+m?.jpg)$ $1$2 last;
+
+    resolver 114.114.114.114 114.114.115.115;
+
+    # ebdcdn.com/xxx
+    location / {
+        root /sites/res.ebdcdn.com;
+    }
+
+    # static files
+    location /static/ {
+        # with timestamp
+        if ($request_uri ~ \.\d+\.(js|css|jpg|gif|png)$) {
+            rewrite ^(.+)\.\d+\.(\w+)$ $1.$2 last;
+            expires max;
+        }
+        
+        # fronts
+        if ($request_filename ~ '\.woff$') {
+            add_header Access-Control-Allow-Origin "*";
+            expires max;
+        }
+        alias /sites/www.eyebuydirect.com/static/dist/;
+    }
+    
+    # original files in upload directory
+    location /upload/ {
+        expires max;
+        proxy_pass http://ebdcdn.com;
+    }
+    
+    # product images
+    location /product/ {
+        expires max;
+        proxy_pass http://cdn.www.master.eyebuy.direct;
+    }
+    
+    # videos
+    location /video/ {
+        expires max;
+        proxy_pass http://cdn.www.master.eyebuy.direct;
+    }
+
+    # upload thumbnails
+    location ~ ^/(upload/.+)\.(\d+x\d+)\.(jpg|jpeg|png|gif|bmp)$ {
+        error_page 404 @empty;
+        expires max;
+        proxy_pass http://www.ebd.$localdomain.eyebuy.direct/tools/thumb.php?src=$1.$3&s=$2;
+    }
+        
+    # contact js and css files
+    location ~ ^/static/(dist/)?(js|css)/_(\w+),(.+)$ {
+        expires max;
+        proxy_pass http://www.ebd.$localdomain.eyebuy.direct/concat.php?files=$4&format=$2&v=$3;
+    }
+
+    # ebdcdn.com/watermark
+    location /watermark/ {
+        expires max;
+        proxy_pass http://www.ebd.$localdomain.eyebuy.direct;
+    }
+	
+	# ebdcdn.com/sun
+	location /sun/ {
+		expires max;
+		proxy_pass http://cdn.www.master.eyebuy.direct;
+	}
+
+    # deny php files
+    location ~ \.php$ {
+        deny all;
+    }
+
+    # empty picture (for 404)
+    location @empty {
+        internal;
+        empty_gif;
+    }
+}
