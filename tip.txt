@@ -1,2 +1,0 @@
-升级pip python -m pip install -U pip
-安装插件 pip install jieba
