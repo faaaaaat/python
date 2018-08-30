@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <title> new document </title>
+  <meta name="generator" content="editplus" />
+  <meta name="author" content="" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <style type="text/css">
+ #Container{
+  width:800px;
+  margin:auto;
+  margin_top:60px;
+ }
+ #map{
+  width:800px;
+  height:400px;
+  background-color:#ccc;
+  overflow:hidden;
+  position:absolute;
+  
+ }
+  </style>
+<script type="text/JavaScript">
+function Food(){
+    this.init = function(){
+        this.w = 20;
+        this.h = 20;
+        this.color = 'red';
+    }
+    this.init();
+    //显示食物
+    this.display = function(){
+        //我们显示一个食物，首先要知道，大小，位置，属性
+        var new_div = document.createElement('div');
+        new_div.style.width = this.w+'px';
+        new_div.style.height = this.h+'px';
+        //位置我们采用0,1,2....
+        //还要求出有多少个空格
+        this.x = Math.round(Math.random()*39);//随机产生
+        this.y = Math.round(Math.random()*19);
+        new_div.style.left = (this.w*this.x)+'px';
+        new_div.style.top = (this.h*this.y)+'px';
+        new_div.style.backgroundColor = this.color;
+        new_div.style.position = 'absolute';
+        document.getElementById('map').appendChild(new_div);
+    }
+}
+//显示蛇
+function Snake(){
+    this.init = function(){
+        this.w = 20;
+        this.h = 20;
+        this.direct = 'right';//方向
+        this.body = [
+            {x:5,y:3,color:"blue"},
+            {x:4,y:3,color:"red"},
+            {x:3,y:3,color:'red'}
+        ];
+    }
+    this.init();
+ this.display = function(){
+ //通过数组来保存蛇身，一个元素代表一个蛇节，
+        //遍历蛇身，根据每节 产生一个div
+        for(var i=0; i<this.body.length; i++) {
+        //得到当前的蛇节，显示
+            //创建一个div
+           var snake_div = document.createElement('div');
+           snake_div.style.position = 'absolute';//绝对定位
+           snake_div.style.left = (this.w * this.body[i].x) + 'px';
+           snake_div.style.top = (this.h * this.body[i].y) + 'px';
+           snake_div.style.width = this.w + 'px';
+           snake_div.style.height = this.h + 'px';
+           snake_div.style.backgroundColor = this.body[i].color;
+           document.getElementById('map').appendChild(snake_div);
+           //将显示的div记录下来
+           this.body[i].div = snake_div;
+        //alert('hello');
+       }
+}
+  this.move = function(){
+         //控制蛇身
+        for (var i= this.body.length-1; i > 0; i--) {
+            //赋值
+            this.body[i].x = this.body[i-1].x;
+            this.body[i].y = this.body[i-1].y;
+        }
+   //移动蛇头
+   switch(this.direct){
+     case 'up':
+     this.body[0].y -=1;
+     break;
+     case 'down':
+     this.body[0].y +=1;
+     break;
+     case 'left':
+     this.body[0].x -=1;
+     break;
+     case 'right':
+     this.body[0].x +=1;
+     break;
+   }
+   //alert(this.body[0].x);
+   //把旧的蛇节删除
+    this.removeSnake();
+   //按照新的位置属性重新显示一下
+    this.display();
+    //判断方向
+    this.setDirect = function(keycode){
+     switch(keycode){
+       case 37:
+       if(this.direct!='right'){
+       this.direct = 'left';}
+       break;
+       case 38:
+       if(this.direct!='down'){
+       this.direct = 'up';}
+       break;
+       case 39:
+       if(this.direct!='left'){
+       this.direct = 'right';}
+       break;
+       case 40:
+       if(this.direct!='up'){
+       this.direct = 'down';}
+       break;
+     }
+    }
+  }
+  this.removeSnake = function(){
+   //先找到他的父元素
+   var map = document.getElementById('map');
+   for(var i=0;i<this.body.length;i++){
+    map.removeChild(this.body[i].div);
+   }
+  }
+}
+
+ function init(){
+  food = new Food();
+  food.display();
+  snake = new Snake();
+  snake.display();
+ }
+ function start(){
+  snake_id = setInterval("snake.move()",300);
+ }
+ function restart(){
+  food.init();
+  snake.init();
+ }
+ function changeDirect(evt){
+  snake.setDirect(evt.keyCode);
+ }
+</script>
+ </head>
+ <body onload="init();" onkeydown="changeDirect(event)">
+  <div id="container">
+  <input type="button" onclick="start();" value="开始">
+  <input type="button" onclick="restart();" value="重新开始">
+  <div id="map"></div>
+  </div>
+ </body>
+</html>
