@@ -3,7 +3,7 @@ async-timeout==1.2.1
 beautifulsoup4==4.5.1
 chardet==3.0.4
 configparser==3.5.0
-Django==1.10.4
+Django==1.11.29
 image==1.5.5
 jieba==0.38
 Jinja2==2.9.6
