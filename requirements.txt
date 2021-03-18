@@ -13,7 +13,7 @@ msgpack==0.5.6
 multidict==3.1.0
 numpy==1.11.2
 pandas==0.19.1
-Pillow==3.4.2
+Pillow==8.1.1
 pyasn1==0.1.9
 pygame==1.9.3
 python-dateutil==2.6.0
