@@ -6,7 +6,7 @@ configparser==3.5.0
 Django==1.10.4
 image==1.5.5
 jieba==0.38
-Jinja2==2.9.6
+Jinja2==2.11.3
 lxml==4.2.4
 MarkupSafe==1.0
 msgpack==0.5.6
