@@ -21,7 +21,7 @@ python-magic==0.4.12
 pytz==2016.10
 pyzmq==17.1.2
 requests==2.12.3
-rsa==3.4.2
+rsa==4.7
 selenium==3.8.0
 simplejson==3.16.0
 six==1.10.0
